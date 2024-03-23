@@ -14,7 +14,7 @@ from flask_cors import CORS
 
 #----------------------------------------------------------
 cred = credentials.Certificate(
-  "project-50e83-firebase-adminsdk-9o6z6-341d7bf7ae.json")
+  "/etc/secrets/firebase")
 firebase_admin.initialize_app(cred,
                              {'storageBucket': 'project-50e83.appspot.com'})
 
