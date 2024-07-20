@@ -1,12 +1,10 @@
-from openai import OpenAI
+import openai
 import os
 import json
 import re
 from datetime import datetime
 from utility.utils import log_response,LOG_TYPE_GPT
 
-OPENAI_API_KEY = os.environ.get('OPENAI_KEY')
-client = OpenAI(api_key=OPENAI_API_KEY)
 log_directory = ".logs/gpt_logs"
 
 prompt = """# Instructions
@@ -62,16 +60,18 @@ Timed Captions:{}
 """.format(script,"".join(map(str,captions_timed)))
     print("Content", user_content)
     
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        temperature=1,
+
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+        temperature=0.1,
+        max_tokens=70,
         messages=[
             {"role": "system", "content": prompt},
             {"role": "user", "content": user_content}
-        ]
-    )
+            ]
+        )
     
-    text = response.choices[0].message.content.strip()
+    text = completion.choices[0].message.content.strip()
+
     text = re.sub('\s+', ' ', text)
     print("Text", text)
     log_response(LOG_TYPE_GPT,script,text)
