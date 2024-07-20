@@ -1,11 +1,13 @@
 import os
+import openai
 from openai import OpenAI
 import json
 
-OPENAI_API_KEY = os.getenv('OPENAI_KEY')
-client = OpenAI(api_key=OPENAI_API_KEY)
 
 def generate_script(topic):
+    
+    openai.api_key = os.environ['OPENAI_API_KEY']
+
     prompt = (
         """You are a seasoned content writer for a YouTube Shorts channel, specializing in facts videos. 
         Your facts shorts are concise, each lasting less than 50 seconds (approximately 140 words). 
@@ -34,19 +36,21 @@ def generate_script(topic):
         """
     )
 
-    response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": prompt},
-                {"role": "user", "content": topic}
-            ]
-        )
-    content = response.choices[0].message.content
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+    temperature=0.1,
+    max_tokens=70,
+    messages=[
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": topic}
+        ]
+    )
+    content = completion.choices[0].message.content
+
     try:
         script = json.loads(content)["script"]
     except Exception as e:
-        json_start_index = content.find('{')
-        json_end_index = content.rfind('}')
-        content = content[json_start_index:json_end_index+1]
-        script = json.loads(content)["script"]
+            json_start_index = content.find('{')
+            json_end_index = content.rfind('}')
+            content = content[json_start_index:json_end_index+1]
+            script = json.loads(content)["script"]
     return script

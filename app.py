@@ -14,8 +14,7 @@ from flask_cors import CORS
 
 #----------------------------------------------------------
 #----------------------------------------------------------
-from openai import OpenAI
-import os
+
 import edge_tts
 import json
 import asyncio
