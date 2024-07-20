@@ -28,7 +28,7 @@ def generate_script(topic):
 
         Keep it brief, highly interesting, and unique.
 
-        Stictly output the script in a JSON format like below, and only provide a parsable JSON object with the key 'script'.
+        Strictly output the script in a JSON format like below, and only provide a parsable JSON object with the key 'script'.
 
         # Output
         {"script": "Here is the script ..."}
@@ -49,9 +49,11 @@ def generate_script(topic):
     firstChar = content[0]
 
     print("result...before")
+    print(content)
 
-    if(lastChar != "}"):
-         content += "}"
+
+    if(lastChar != "\"}"):
+         content += "\"}"
 
     if(firstChar != "{"):
         content = "{" + content
