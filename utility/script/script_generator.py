@@ -43,8 +43,17 @@ def generate_script(topic):
         {"role": "user", "content": topic}
         ]
     )
-    content = completion.choices[0].message.content
+    content = completion.choices[0].message.content.strip()
 
+    lastChar = content[-1]
+    firstChar = content[0]
+
+    if(lastChar != "}"):
+         content += "}"
+
+    if(firstChar != "{")
+        content = "{" + content
+        
     print("result...")
     print(content)
     try:
