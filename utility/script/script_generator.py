@@ -48,13 +48,15 @@ def generate_script(topic):
     lastChar = content[-1]
     firstChar = content[0]
 
+    print("result...before")
+
     if(lastChar != "}"):
          content += "}"
 
-    if(firstChar != "{")
+    if(firstChar != "{"):
         content = "{" + content
-        
-    print("result...")
+
+    print("result...after")
     print(content)
     try:
         script = json.loads(content)["script"]
@@ -62,5 +64,8 @@ def generate_script(topic):
             json_start_index = content.find('{')
             json_end_index = content.rfind('}')
             content = content[json_start_index:json_end_index+1]
+
+            print("result after exception")
+            print(content)
             script = json.loads(content)["script"]
     return script
