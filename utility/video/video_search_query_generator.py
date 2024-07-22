@@ -54,6 +54,43 @@ def getVideoSearchQueriesTimed(script,captions_timed):
    
     return None
 
+def getVideoSearchQueriesNoCaptions(script):
+     keywordPrompt = """# Instructions
+
+  Given the following video script, extract three visually concrete and specific keywords
+
+  For example, if the prompt is 'The cheetah is the fastest land animal, capable of running at speeds up to 75 mph', 
+  the keywords should include 'cheetah running', 'fastest animal', and '75 mph'. 
+  Similarly, for 'The Great Wall of China is one of the most iconic landmarks in the world', 
+  the keywords should be 'Great Wall of China', 'iconic landmark', and 'China landmark'.
+
+  Important Guidelines:
+
+  Use only English in your text queries.
+  Each search string must depict something visual.
+  The depictions have to be extremely visually concrete, like rainy street, or cat sleeping.
+  'emotional moment' <= BAD, because it doesn't depict something visually.
+  'crying child' <= GOOD, because it depicts something visual.
+  The list must always contain the most relevant and appropriate query searches.
+  ['Car', 'Car driving', 'Car racing', 'Car parked'] <= BAD, because it's 4 strings.
+  ['Fast car'] <= GOOD, because it's 1 string.
+  ['Un chien', 'une voiture rapide', 'une maison rouge'] <= BAD, because the text query is NOT in English.
+    """
+     
+     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+        temperature=0.1,
+        max_tokens=70,
+        messages=[
+            {"role": "system", "content": keywordPrompt},
+            {"role": "user", "content": script["script"]}
+            ]
+        )
+    
+     text = completion.choices[0].message.content.strip()
+
+     print("video query ran:", text)
+     return text
+
 def call_OpenAI(script,captions_timed):
     user_content = """Script: {}
 Timed Captions:{}
