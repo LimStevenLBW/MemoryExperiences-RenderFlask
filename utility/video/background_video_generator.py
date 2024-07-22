@@ -68,3 +68,22 @@ def generate_video_url(timed_video_searches,video_server):
             timed_video_urls = get_images_for_video(timed_video_searches)
 
         return timed_video_urls
+
+
+def generate_video_urlNoCaptions(timed_video_searches,video_server):
+        timed_video_urls = []
+        if video_server == "pexel":
+            used_links = []
+            for search_terms in timed_video_searches:
+                url = ""
+                for query in search_terms:
+                  
+                    url = getBestVideo(query, orientation_landscape=False, used_vids=used_links)
+                    if url:
+                        used_links.append(url.split('.hd')[0])
+                        break
+                timed_video_urls.append(url)
+        elif video_server == "stable_diffusion":
+            timed_video_urls = get_images_for_video(timed_video_searches)
+
+        return timed_video_urls
