@@ -53,6 +53,46 @@ except KeyError:
 
 @app.route('/video/<userprompt>')
 def VideoRequest(userprompt):
+  keywordPrompt = """# Instructions
+
+Given the following video script, extract three visually concrete and specific keywords
+
+For example, if the prompt is 'The cheetah is the fastest land animal, capable of running at speeds up to 75 mph', 
+the keywords should include 'cheetah running', 'fastest animal', and '75 mph'. 
+Similarly, for 'The Great Wall of China is one of the most iconic landmarks in the world', 
+the keywords should be 'Great Wall of China', 'iconic landmark', and 'China landmark'.
+
+Important Guidelines:
+
+Use only English in your text queries.
+Each search string must depict something visual.
+The depictions have to be extremely visually concrete, like rainy street, or cat sleeping.
+'emotional moment' <= BAD, because it doesn't depict something visually.
+'crying child' <= GOOD, because it depicts something visual.
+The list must always contain the most relevant and appropriate query searches.
+['Car', 'Car driving', 'Car racing', 'Car parked'] <= BAD, because it's 4 strings.
+['Fast car'] <= GOOD, because it's 1 string.
+['Un chien', 'une voiture rapide', 'une maison rouge'] <= BAD, because the text query is NOT in English.
+  """
+  script = generate_script(userprompt)
+
+
+  search_terms = getVideoSearchQueriesTimed(response, timed_captions)
+  print(search_terms)
+
+  background_video_urls = None
+  if search_terms is not None:
+      background_video_urls = generate_video_url(search_terms, "pexel")
+      print(background_video_urls)
+  else:
+      print("No background video")
+
+  if background_video_urls is not None:
+     return background_video_urls
+  
+
+@app.route('/generate/<userprompt>')
+def VideoGenerate(userprompt):
     SAMPLE_TOPIC = userprompt
     SAMPLE_FILE_NAME = "audio_tts.wav"
     VIDEO_SERVER = "pexel"
@@ -77,11 +117,13 @@ def VideoRequest(userprompt):
 
     background_video_urls = merge_empty_intervals(background_video_urls)
 
-    if background_video_urls is not None:
-        video = get_output_media(SAMPLE_FILE_NAME, timed_captions, background_video_urls, VIDEO_SERVER)
-        print(video)
-    else:
-        print("No video")
+    return background_video_urls
+
+    #if background_video_urls is not None:
+        #video = get_output_media(SAMPLE_FILE_NAME, timed_captions, background_video_urls, VIDEO_SERVER)
+        #print(video)
+    #else:
+        #print("No video")
 
 #Robin Request will be called by a user client(Unity Project)
 #It will take a parameter of a simple string describing a memory
