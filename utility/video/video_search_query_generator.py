@@ -82,7 +82,7 @@ def getVideoSearchQueriesNoCaptions(script):
         max_tokens=70,
         messages=[
             {"role": "system", "content": keywordPrompt},
-            {"role": "user", "content": script["script"]}
+            {"role": "user", "content": script}
             ]
         )
     
