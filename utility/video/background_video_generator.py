@@ -70,30 +70,31 @@ def generate_video_url(timed_video_searches,video_server):
         return timed_video_urls
 
 
-def generate_video_urlNoCaptions(timed_video_searches,video_server):
-        timed_video_urls = []
+def generate_video_urlNoCaptions(searchTerms, video_server):
+        videoUrls = []
 
-        print("Generatevideonocaptions running...")
+        print("Generate video no captions running...")
 
-        timed_video_queries = timed_video_searches[1:]
+        #searchTermsFormatted = searchTerms[1:]
 
-        timed_video_queries = timed_video_queries.split("-")
+        #searchTermsFormatted = searchTermsFormatted.split("-")
 
-        print("Query List", timed_video_queries)
+        print("Search Terms Formatted", searchTerms)
+
         if video_server == "pexel":
             used_links = []
 
-            for search_terms in timed_video_queries:
-                print("...checking search term:", search_terms)
+            for term in searchTerms:
+                print("...checking search term:", term)
                 url = ""
  
-                url = getBestVideo(search_terms, orientation_landscape=False, used_vids=used_links)
+                url = getBestVideo(term, orientation_landscape=False, used_vids=used_links)
                 if url:
                     used_links.append(url.split('.hd')[0])
-                    timed_video_urls.append(url)
+                    videoUrls.append(url)
 
 
       #  elif video_server == "stable_diffusion":
-       #     timed_video_urls = get_images_for_video(timed_video_searches)
+       #     videoUrls = get_images_for_video(searchTerms)
 
-        return timed_video_urls
+        return videoUrls

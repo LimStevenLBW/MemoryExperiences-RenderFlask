@@ -54,7 +54,6 @@ except KeyError:
 @app.route('/video/<userprompt>')
 def VideoRequest(userprompt):
     SAMPLE_TOPIC = userprompt
-    SAMPLE_FILE_NAME = "audio_tts.wav"
     VIDEO_SERVER = "pexel"
 
     response = generate_script(SAMPLE_TOPIC)
