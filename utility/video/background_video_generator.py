@@ -5,7 +5,7 @@ from utility.utils import log_response,LOG_TYPE_PEXEL
 PEXELS_API_KEY = os.environ.get('PEXELS_KEY')
 
 def search_videos(query_string, orientation_landscape=True):
-   
+    print("query string:", query_string)
     url = "https://api.pexels.com/videos/search"
     headers = {
         "Authorization": PEXELS_API_KEY
@@ -72,18 +72,22 @@ def generate_video_url(timed_video_searches,video_server):
 
 def generate_video_urlNoCaptions(timed_video_searches,video_server):
         timed_video_urls = []
+
+        print("generatevideonocaptions running")
+        print("timedvideo searches: ", timed_video_searches)
         if video_server == "pexel":
             used_links = []
             for search_terms in timed_video_searches:
+                print("checking search term:", search_terms)
                 url = ""
-                for query in search_terms:
-                  
-                    url = getBestVideo(query, orientation_landscape=False, used_vids=used_links)
-                    if url:
-                        used_links.append(url.split('.hd')[0])
-                        break
+ 
+                url = getBestVideo(search_terms, orientation_landscape=False, used_vids=used_links)
+                if url:
+                    used_links.append(url.split('.hd')[0])
+                    break
+            
                 timed_video_urls.append(url)
-        elif video_server == "stable_diffusion":
-            timed_video_urls = get_images_for_video(timed_video_searches)
+      #  elif video_server == "stable_diffusion":
+       #     timed_video_urls = get_images_for_video(timed_video_searches)
 
         return timed_video_urls
