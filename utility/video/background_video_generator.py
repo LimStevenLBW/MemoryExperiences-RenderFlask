@@ -73,20 +73,18 @@ def generate_video_url(timed_video_searches,video_server):
 def generate_video_urlNoCaptions(timed_video_searches,video_server):
         timed_video_urls = []
 
-        print("Generatevideonocaptions running")
-        print("timedvideo searches before splitting: ", timed_video_searches)
-        print('...')
+        print("Generatevideonocaptions running...")
 
         timed_video_queries = timed_video_searches[1:]
 
         timed_video_queries = timed_video_queries.split("-")
 
-        print("query list", timed_video_queries)
+        print("Query List", timed_video_queries)
         if video_server == "pexel":
             used_links = []
 
             for search_terms in timed_video_queries:
-                print("checking search term:", search_terms)
+                print("...checking search term:", search_terms)
                 url = ""
  
                 url = getBestVideo(search_terms, orientation_landscape=False, used_vids=used_links)
