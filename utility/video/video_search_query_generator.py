@@ -88,7 +88,7 @@ def getVideoSearchQueriesNoCaptions(script):
     
      text = completion.choices[0].message.content.strip()
 
-     print("video query ran:", text)
+     print("get video query no captions ran:", text)
      return text
 
 def call_OpenAI(script,captions_timed):

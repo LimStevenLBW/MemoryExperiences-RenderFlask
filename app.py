@@ -70,6 +70,8 @@ def VideoRequest(userprompt):
     else:
         print("No background video")
 
+    urlDictionary = {"urls": background_video_urls}
+    return urlDictionary
     #background_video_urls = merge_empty_intervals(background_video_urls)
   
 
