@@ -81,18 +81,19 @@ def generate_video_urlNoCaptions(searchTerms, video_server):
 
         print("Search Terms Formatted", searchTerms)
         print(type(searchTerms))
-        
+
         if video_server == "pexel":
             used_links = []
 
-            for term in searchTerms:
-                print("...checking search term:", term)
-                url = ""
- 
-                url = getBestVideo(term, orientation_landscape=False, used_vids=used_links)
-                if url:
-                    used_links.append(url.split('.hd')[0])
-                    videoUrls.append(url)
+            #for term in searchTerms:
+            print("...Using these search terms:", searchTerms)
+
+            url = ""
+
+            url = getBestVideo(searchTerms, orientation_landscape=False, used_vids=used_links)
+            if url:
+                used_links.append(url.split('.hd')[0])
+                videoUrls.append(url)
 
 
       #  elif video_server == "stable_diffusion":

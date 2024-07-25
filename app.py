@@ -56,11 +56,10 @@ def VideoRequest(userprompt):
     SAMPLE_TOPIC = userprompt
     VIDEO_SERVER = "pexel"
 
-    response = generate_script(SAMPLE_TOPIC)
-    print("script: {}".format(response))
+    #response = generate_script(SAMPLE_TOPIC)
+    #print("script: {}".format(response))
 
-    search_terms = getVideoSearchQueriesNoCaptions(response)
-    print("SEARCH TERMS", search_terms)
+    search_terms = getVideoSearchQueriesNoCaptions(userprompt)
 
     background_video_urls = None
     if search_terms is not None:

@@ -57,13 +57,12 @@ def getVideoSearchQueriesTimed(script,captions_timed):
 def getVideoSearchQueriesNoCaptions(script):
      keywordPrompt = """# Instructions
 
-Given the following video script, extract 3 visually concrete keywords. 
+Given a few keywords, describe a more detailed scene in 5 visually concrete keywords or less. 
 The keywords should be short and capture the main essence of the sentence. 
 They can be synonyms or related terms.
-If a keyword is a single word, try to return a two-word keyword that is more visually concrete. 
-The output should be in python list format, like this: ["keyword1", "keyword2", "keyword3"]
+The output should be in a string format.
 
-For example, if the script is 'The cheetah is the fastest land animal, capable of running at speeds up to 75 mph', the keywords should include 'cheetah running', 'fastest animal', and '75 mph'. Similarly, for 'The Great Wall of China is one of the most iconic landmarks in the world', the keywords should be 'Great Wall of China', 'iconic landmark', and 'China landmark'.
+For example, if the prompt is 'cheetah animal', the keywords can include 'cheetah running', 'cheetah in a savannah', and 'cheetah sleeping'. Similarly, for 'The Great Wall', the keywords should be 'Great Wall of China', 'China iconic landmark wall', and 'Videos on the Great Wall'.
 
 Important Guidelines:
 
