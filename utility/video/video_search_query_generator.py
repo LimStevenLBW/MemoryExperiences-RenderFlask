@@ -57,14 +57,13 @@ def getVideoSearchQueriesTimed(script,captions_timed):
 def getVideoSearchQueriesNoCaptions(script):
      keywordPrompt = """# Instructions
 
-Given the following video script, extract three visually concrete keywords. 
+Given the following video script, extract 3 visually concrete keywords. 
 The keywords should be short and capture the main essence of the sentence. 
-They can be synonyms or related terms. If a caption is vague or general, 
-consider the next timed caption for more context. 
-If a keyword is a single word, try to return a two-word keyword that is visually concrete. 
-The output should be in JSON format, like this: [[["keyword1", "keyword2", "keyword3"]], [["keyword4", "keyword5", "keyword6"]], ...]. Please handle all edge cases, such as overlapping time segments, vague or general captions, and single-word keywords.
+They can be synonyms or related terms.
+If a keyword is a single word, try to return a two-word keyword that is more visually concrete. 
+The output should be in python list format, like this: ["keyword1", "keyword2", "keyword3"]
 
-For example, if the caption is 'The cheetah is the fastest land animal, capable of running at speeds up to 75 mph', the keywords should include 'cheetah running', 'fastest animal', and '75 mph'. Similarly, for 'The Great Wall of China is one of the most iconic landmarks in the world', the keywords should be 'Great Wall of China', 'iconic landmark', and 'China landmark'.
+For example, if the script is 'The cheetah is the fastest land animal, capable of running at speeds up to 75 mph', the keywords should include 'cheetah running', 'fastest animal', and '75 mph'. Similarly, for 'The Great Wall of China is one of the most iconic landmarks in the world', the keywords should be 'Great Wall of China', 'iconic landmark', and 'China landmark'.
 
 Important Guidelines:
 

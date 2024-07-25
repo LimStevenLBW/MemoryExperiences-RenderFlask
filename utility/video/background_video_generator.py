@@ -80,7 +80,8 @@ def generate_video_urlNoCaptions(searchTerms, video_server):
         #searchTermsFormatted = searchTermsFormatted.split("-")
 
         print("Search Terms Formatted", searchTerms)
-
+        print(type(searchTerms))
+        
         if video_server == "pexel":
             used_links = []
 
